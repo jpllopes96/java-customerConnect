@@ -45,4 +45,15 @@ public class CustomerController {
 
     }
 
+    @GetMapping(path = "/{customerId}")
+    public ResponseEntity<CustomerEntity> findById(@PathVariable("customerId") Long customerId){
+
+        var customer = customerService.findById(customerId);
+
+        return customer.isPresent() ?
+                ResponseEntity.ok(customer.get()) :
+                ResponseEntity.notFound().build();
+
+    }
+
 }

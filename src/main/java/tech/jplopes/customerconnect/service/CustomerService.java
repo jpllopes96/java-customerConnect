@@ -9,6 +9,8 @@ import tech.jplopes.customerconnect.controller.dto.CreateCustomerDto;
 import tech.jplopes.customerconnect.entity.CustomerEntity;
 import tech.jplopes.customerconnect.repository.CustomerRepository;
 
+import java.util.Optional;
+
 import static org.springframework.util.StringUtils.*;
 
 @Service
@@ -63,5 +65,11 @@ public class CustomerService {
         }
 
          return PageRequest.of(page, pageSize, direction, "createdAt");
+    }
+
+    public Optional<CustomerEntity> findById(Long customerId) {
+
+        return customerRepository.findById(customerId);
+
     }
 }
