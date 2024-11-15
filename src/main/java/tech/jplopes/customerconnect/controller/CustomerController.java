@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.jplopes.customerconnect.controller.dto.ApiResponse;
 import tech.jplopes.customerconnect.controller.dto.CreateCustomerDto;
 import tech.jplopes.customerconnect.controller.dto.PaginationResponse;
+import tech.jplopes.customerconnect.controller.dto.UpdateCustomerDto;
 import tech.jplopes.customerconnect.entity.CustomerEntity;
 import tech.jplopes.customerconnect.service.CustomerService;
 
@@ -52,6 +53,18 @@ public class CustomerController {
 
         return customer.isPresent() ?
                 ResponseEntity.ok(customer.get()) :
+                ResponseEntity.notFound().build();
+
+    }
+
+    @PutMapping(path = "/{customerId}" )
+    public ResponseEntity<CustomerEntity> updateCustomer(@PathVariable("customerId") Long customerId,
+                                                         @RequestBody UpdateCustomerDto dto){
+
+        var customer = customerService.updateCustomer(customerId, dto);
+
+        return customer.isPresent() ?
+                ResponseEntity.noContent().build() :
                 ResponseEntity.notFound().build();
 
     }
