@@ -99,4 +99,15 @@ public class CustomerService {
             customer.get().setPhoneNumber(dto.phoneNumber());
         }
     }
+
+    public Boolean deleteCustomer(Long customerId) {
+
+        var exists = customerRepository.existsById(customerId);
+
+        if(exists){
+            customerRepository.deleteById(customerId);
+        }
+
+        return exists;
+    }
 }
